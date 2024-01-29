@@ -1,3 +1,5 @@
+import Order from "../model/Orders";
+
 // ************ Cart Value Fee ************ //
 const hasSurchargeValue = (cartValue: number): boolean => cartValue > 0 && cartValue < 10
 const calculateSurchargeValue = (cartValue: number): number => 10 - cartValue
@@ -39,8 +41,6 @@ export const getNumberOfItemsFeeValue = (numOfItems: number): number =>
 export const getAllFeesWithoutRushHours = (cartValue: number, distance: number, numOfItems: number): number =>
     getSurchargeValue(cartValue) + getDeliveryDistanceValue(distance) + getNumberOfItemsFeeValue(numOfItems);
 
-
-
 // ************ Fees in Ruch Hours ************ //
 // Date().getDay() == 5 // that means it's friday
 // Date().getHours() >= 15 && Date().getHours()<= 19 [3pm -7pm]
@@ -49,12 +49,31 @@ const FRIDAY = 5;
 const rushHoursFactor = 1.2;
 const inRushHour = (time: Date) => time.getHours() >= 15 && time.getHours() <= 19;
 const hasRushHours = (time: Date): boolean => time.getDay() == FRIDAY && inRushHour(time)
-export const getTotalFee = (partialyFee: number, time: Date): number =>
-    hasRushHours(time) ? rushHoursFactor * partialyFee : partialyFee;
+const partialyFeeValue =(order: Order): number=> getAllFeesWithoutRushHours(order.cartValue, order.deliveryDistance, order.numberOfItems);
+export const getTotalFee = (order: Order): number =>
+    hasRushHours(order.time) ? rushHoursFactor * partialyFeeValue(order) : partialyFeeValue(order) ;
 
 
 // ************ Check Total Fees  bigger than 15€ ************ //
 //The delivery fee can never be more than 15€, including possible surcharges.
 // TODO: test
-const calucateTotalFeeLimit = (feeValue: number): number =>
-    feeValue > 15 ? 15 : feeValue;
+const calucateTotalFeeLimit = (order: Order): number =>
+getTotalFee(order) > 15 ? 15 : getTotalFee(order);
+
+
+
+
+
+    // export const abdallahGetAllFeesWithoutRushHourss = (
+    //     order: Order, 
+    //     surchargeFun: (x:number)=> number,
+    //     deliveryDistanceFun: (x:number)=> number,
+    //     numberOfItemsFeeFun: (x:number)=> number
+    // ) : number => surchargeFun(order.cartValue) + deliveryDistanceFun(order.deliveryDistance) + numberOfItemsFeeFun(order.numberOfItems)
+    
+    // export const abdallahGetAllFeesWithRushHourss = (
+    //     partialyFee: number,
+    //     time: Date,
+    //     hasRushHours: (x:Date) => boolean,
+    // ) : number => hasRushHours(time) ? rushHoursFactor * partialyFee : partialyFee;
+      
