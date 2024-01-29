@@ -57,7 +57,7 @@ export const getTotalFee = (order: Order): number =>
 // ************ Check Total Fees  bigger than 15€ ************ //
 //The delivery fee can never be more than 15€, including possible surcharges.
 // TODO: test
-const calucateTotalFeeLimit = (order: Order): number =>
+export const calucateTotalFeeLimit = (order: Order): number =>
 getTotalFee(order) > 15 ? 15 : getTotalFee(order);
 
 
