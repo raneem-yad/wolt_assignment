@@ -3,7 +3,7 @@ class Order {
     public cartValue: number,
     public numberOfItems: number,
     public deliveryDistance: number,
-    time: Date
+    public time: Date
   ){}
 };
 
