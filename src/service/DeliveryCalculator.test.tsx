@@ -1,10 +1,11 @@
-import { getSurchargeValue , getNumberOfItemsFeeValue } from "./DeliveryCalculator";
+import { getSurchargeValue ,getDeliveryDistanceValue, getNumberOfItemsFeeValue  } from "./DeliveryCalculator";
 
 type TestCase = {
     input: number,
     output: number
 };
 
+// ************ Cart Value Fee Testing ************ //
 describe("Surcharge", () =>  {
     let testCases = [
         {input: 10, output: 0},
@@ -29,8 +30,33 @@ describe("Surcharge", () =>  {
     })
 });
 
+// ************ DeliveryDistance Fee Testing ************ //
+describe("DeliveryDistance", () =>  {
+    let testCases = [
+        {input: 500, output: 2},
+        {input: 1000, output: 2},
+        {input: 1001, output: 3},
+        {input: 1499, output: 3},
+        {input: 1500, output: 3},
+        {input: 1501, output: 4},
+    ];
+    testCases.forEach((testCase: TestCase) => {
+        test(`when The Distance is ${testCase.input} return fee is ${testCase.output} €` , () => {
+            // given
+            const distanceValue = testCase.input
+            const expectedDeliveryFee = testCase.output;
 
-describe("Bulk Items Surcharge", () =>  {
+            // when
+            const actualDeliveryFee = getDeliveryDistanceValue(distanceValue);
+
+            // then
+            expect(actualDeliveryFee).toBe(expectedDeliveryFee);
+        })
+    })
+});
+
+// ************ surcharge with number of items ************ //
+describe("Bulk Items Fee", () =>  {
     let testCases = [
         {input: 0, output: 0},
         {input: 4, output: 0},
