@@ -18,7 +18,8 @@ function DeliveryCalculationForm() {
     const numberOfItems = numberOfItemsRef.current ? parseInt(numberOfItemsRef.current.value, 10) : 0;
     const deliveryDistance = deliveryDistanceRef.current ? parseInt(deliveryDistanceRef.current.value, 10) : 0;
     const deliveryDate = deliveryDateRef.current ? new Date(deliveryDateRef.current.value) : new Date();
-
+    const deliveryDateTime = `${deliveryDate}TZ${new Date().toLocaleTimeString()}`
+    alert(deliveryDate.getHours())
     if (cartValue >= 200) {
       setDeliveryFee(0);
     } else {
@@ -53,7 +54,7 @@ function DeliveryCalculationForm() {
           </div>
           <div className='inputSection'>
             <label htmlFor="time">Delivery Date</label>
-            <input id="time" type="Date" placeholder="Delivery Date" required ref={deliveryDateRef} />
+            <input id="time" type="datetime-local" placeholder="Delivery Date and Time" required ref={deliveryDateRef} />
           </div>
           <button type="submit">Calculate delivery price</button>
         </form>
