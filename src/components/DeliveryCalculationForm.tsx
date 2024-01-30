@@ -1,22 +1,40 @@
 // import styles from '../styles/QuotesForm.module.css';
 import Orders from '../model/Orders';
-import React, { useRef } from 'react';
+import React, { useRef ,useState } from 'react';
+import Order from '../model/Orders';
+import { calucateTotalFeeLimit } from '../service/DeliveryCalculator';
 
-type DeliveryCalculationFormProps = {
-  onAddQuote: (quote: Orders) => void
-};
 
-const DeliveryCalculationForm: React.FC<DeliveryCalculationFormProps> = ({ onAddQuote }) => {
+function DeliveryCalculationForm() {
 
+  const [deliveryFee, setDeliveryFee] = useState(0); 
   const cartValueRef = useRef<HTMLInputElement>(null);
   const deliveryDistanceRef = useRef<HTMLInputElement>(null);
   const numberOfItemsRef = useRef<HTMLInputElement>(null);
   const deliveryDateRef = useRef<HTMLInputElement>(null);
 
-  let deliveryFee = 0;
+  // let deliveryFee = 0;
 
   const addButtonClickHandler = (event: React.FormEvent): void => {
+    
     event.preventDefault();
+    if(cartValueRef.current) {
+      
+      if (parseFloat(cartValueRef.current.value) >= 200)  setDeliveryFee(fee=>0);
+      else {
+      
+        let order = new Order(
+          cartValueRef.current ? parseFloat(cartValueRef.current.value) : 0,
+          numberOfItemsRef.current ? parseInt(numberOfItemsRef.current.value,10) : 0,
+          deliveryDistanceRef.current ? parseInt(deliveryDistanceRef.current.value,10) : 0,
+          deliveryDateRef.current ? new Date(deliveryDateRef.current.value) : new Date()
+        );
+        let calculatedFee = calucateTotalFeeLimit(order);
+        setDeliveryFee(fee=>calculatedFee)
+
+      }
+    }
+    
     // get the values from inputs fields 
     // quoteRef.current ? quoteRef.current.value : '',
     //   authorRef.current ? authorRef.current.value: ''
