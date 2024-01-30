@@ -39,6 +39,7 @@ function DeliveryCalculationForm() {
     <section className='formSection'>
 
       <div className='formSection_content'>
+        <h2>Delivery Fee Calculator</h2>
         <form className='deliveryCalculationForm' onSubmit={addButtonClickHandler}>
           <div className='inputSection'>
             <label htmlFor="cart_value">Cart Value in €</label>
@@ -58,8 +59,8 @@ function DeliveryCalculationForm() {
           </div>
           <button type="submit">Calculate delivery price</button>
         </form>
-
-        <p>Delivery Fee: {deliveryFee}€</p>
+        <hr/>
+        <p>Delivery Fee: {deliveryFee} €</p>
       </div>
     </section>
   );

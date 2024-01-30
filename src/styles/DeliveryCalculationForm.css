@@ -4,8 +4,6 @@
     box-sizing: unset;
 }
 
-
-
 .formSection{
     background: linear-gradient(rgba(0, 194, 232, 0.2), rgba(0, 194, 232, 0.7)), url(../assets/background.webp) no-repeat center center / cover;
     width: 100%;
@@ -20,6 +18,12 @@
 .formSection_content{
     background-color: rgb(0, 194, 232);
     padding: 30px;
+}
+
+.formSection_content h2{
+    padding: 10px;
+    color: #fff;
+    font-size: 2rem;
 }
 
 .deliveryCalculationForm {
@@ -69,6 +73,11 @@
 .deliveryCalculationForm button:hover {
     cursor: pointer;
     background-color: rgb(0, 58, 69);
+}
+
+.formSection hr {
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255,0.7);
 }
 
 .formSection p {
