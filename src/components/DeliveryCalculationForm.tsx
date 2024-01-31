@@ -43,24 +43,24 @@ function DeliveryCalculationForm() {
         <form className='deliveryCalculationForm' onSubmit={addButtonClickHandler}>
           <div className='inputSection'>
             <label htmlFor="cart_value">Cart Value in €</label>
-            <input id="cart_value" type="number" required min="0" step="any" placeholder="Cart value" ref={cartValueRef} />
+            <input id="cart_value" type="number" required min="0" step="any" placeholder="Cart value" ref={cartValueRef} data-test-id="cartValue" />
           </div>
           <div className='inputSection'>
             <label htmlFor="delivery_distance">Delivery Distance in m</label>
-            <input id="delivery_distance" type="number" min="0" required placeholder="Delivery Distance" ref={deliveryDistanceRef} />
+            <input id="delivery_distance" type="number" min="0" required placeholder="Delivery Distance" ref={deliveryDistanceRef} data-test-id="distance" />
           </div>
           <div className='inputSection'>
             <label htmlFor="number_of_items">Number of Items</label>
-            <input id="number_of_items" type="number" min="0" required placeholder="Number of Items" ref={numberOfItemsRef} />
+            <input id="number_of_items" type="number" min="0" required placeholder="Number of Items" ref={numberOfItemsRef} data-test-id="numItems" />
           </div>
           <div className='inputSection'>
             <label htmlFor="time">Delivery Date</label>
-            <input id="time" type="datetime-local" placeholder="Delivery Date and Time" required ref={deliveryDateRef} />
+            <input id="time" type="datetime-local" placeholder="Delivery Date and Time" required ref={deliveryDateRef} data-test-id="orderTime" />
           </div>
           <button type="submit">Calculate delivery price</button>
         </form>
         <hr/>
-        <p>Delivery Fee: {deliveryFee} €</p>
+        <p data-test-id="fee">Delivery Fee: {deliveryFee} €</p>
       </div>
     </section>
   );
